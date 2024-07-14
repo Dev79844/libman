@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const ManageBooks = () => {
   const [books, setBooks] = useState([]);
@@ -6,20 +7,32 @@ const ManageBooks = () => {
   useEffect(() => {
     // Fetch books from API
     // For now, we'll use dummy data
-    setBooks([
-      { id: 1, title: 'Book 1', author: 'Author 1' },
-      { id: 2, title: 'Book 2', author: 'Author 2' },
-    ]);
+    const fetchData = async () => {
+      const response = await axios.get(`${import.meta.env.VITE_APP_URI}/books`);
+      if (response.status == 200) {
+        console.log(response.data);
+        setBooks(response.data?.books || []);
+      }
+    };
+    fetchData();
   }, []);
 
   const handleDelete = (id) => {
     // Delete book logic here
-    setBooks(books.filter(book => book.id !== id));
+    const response = axios.delete(
+      `${import.meta.env.VITE_APP_URI}/book/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      },
+    );
+    setBooks(books.filter((book) => book.id !== id));
   };
 
   const handleUpdate = (id) => {
     // Update book logic here
-    console.log('Update book with id:', id);
+    console.log("Update book with id:", id);
   };
 
   return (
@@ -34,16 +47,31 @@ const ManageBooks = () => {
           </tr>
         </thead>
         <tbody>
-          {books.map(book => (
-            <tr key={book.id}>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-              <td>
-                <button onClick={() => handleUpdate(book.id)} className="mr-2 text-blue-500">Update</button>
-                <button onClick={() => handleDelete(book.id)} className="text-red-500">Delete</button>
-              </td>
-            </tr>
-          ))}
+          {books &&
+            books.map((book) => (
+              <tr key={book.id}>
+                <td>{book.title}</td>
+                <td>
+                  {book.book_author?.map(
+                    (author) => author.authors?.name + " ",
+                  )}
+                </td>
+                <td>
+                  <button
+                    onClick={() => handleUpdate(book.id)}
+                    className="mr-2 text-blue-500"
+                  >
+                    Update
+                  </button>
+                  <button
+                    onClick={() => handleDelete(book.id)}
+                    className="text-red-500"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

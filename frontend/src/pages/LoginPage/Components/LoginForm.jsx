@@ -19,6 +19,9 @@ const LoginForm = () => {
     if (response.status == 200) {
       localStorage.setItem("token", response.data?.token);
       localStorage.setItem("role", response.data?.role);
+      if (response.data?.role == "admin") {
+        navigate("/admin");
+      }
       navigate("/");
     }
   };
