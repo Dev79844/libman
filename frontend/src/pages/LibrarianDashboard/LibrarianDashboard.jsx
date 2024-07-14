@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
-import Navbar from '../HomePage/Components/Navbar.jsx';
-import Sidebar from './Components/Sidebar.jsx';
-import CreateBook from './Components/Createbook.jsx';
-import ManageBooks from './Components/Managebooks.jsx';
-import BorrowedBooks from './Components/BorrowedBooks.jsx';
-import LateFees from './Components/LateFees.jsx';
-import ViewUsers from './Components/ViewUsers.jsx';
+import React, { useState } from "react";
+import Navbar from "../HomePage/Components/Navbar.jsx";
+import Sidebar from "./Components/Sidebar.jsx";
+import CreateBook from "./Components/Createbook.jsx";
+import ManageBooks from "./Components/Managebooks.jsx";
+import BorrowedBooks from "./Components/BorrowedBooks.jsx";
+import LateFees from "./Components/LateFees.jsx";
+import ViewUsers from "./Components/ViewUsers.jsx";
 
 const LibrarianDashboard = () => {
-  const [activeTask, setActiveTask] = useState('create');
+  const [activeTask, setActiveTask] = useState("create");
 
   const renderTask = () => {
     switch (activeTask) {
-      case 'create':
+      case "create":
         return <CreateBook />;
-      case 'manage':
+      case "manage":
         return <ManageBooks />;
-      case 'borrowed':
+      case "borrowed":
         return <BorrowedBooks />;
-      case 'latefees':
+      case "latefees":
         return <LateFees />;
-      case 'users':
+      case "users":
         return <ViewUsers />;
       default:
         return <CreateBook />;

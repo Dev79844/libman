@@ -1,6 +1,6 @@
-import React from 'react';
-import Navbar from '../HomePage/Components/Navbar';
-import SignupForm from './Components/SignupForm';
+import React from "react";
+import Navbar from "../HomePage/Components/Navbar";
+import SignupForm from "./Components/SignupForm";
 
 const SignupPage = () => {
   return (
