@@ -95,6 +95,7 @@ model checkout_items {
   return_date   DateTime?  @db.Date
   status        String?    @db.VarChar(50)
   checkout_id   Int?
+  late_fees     Decimal?   @default(0.00) @db.Decimal(10, 2)
   checkouts     checkouts? @relation(fields: [checkout_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   books         books?     @relation(fields: [book_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "checkouts_book_id_fkey")
 }
