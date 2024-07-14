@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import BorrowModal from './BorrowModal';
+import ReturnModal from './ReturnModal';
 
-const BookItem = ({ book }) => {
+const BookItem = ({ book, lateFees }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -14,12 +14,13 @@ const BookItem = ({ book }) => {
           onClick={() => setIsModalOpen(true)}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
         >
-          Borrow
+          {lateFees > 0 ? 'Pay & Return' : 'Return'}
         </button>
-        <BorrowModal
+        <ReturnModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           book={book}
+          lateFees={lateFees}
         />
       </div>
     </div>

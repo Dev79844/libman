@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
+import BorrowModal from './BorrowModal';
 
 const BookItem = ({ book }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <div className="flex mb-6 border-b pb-6">
-      <img src={book.coverUrl} alt={book.title} className="w-32 h-40 object-cover mr-6" />
+    <div className="flex mb-4">
+      <img src={book.coverUrl} alt={book.title} className="w-24 h-32 object-cover mr-4" />
       <div>
-        <h3 className="text-xl font-semibold mb-2">{book.title}</h3>
-        <p className="text-gray-600 mb-4">{book.description}</p>
-        <span className={`px-3 py-1 rounded ${book.status.includes('Available') ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
-          {book.status}
-        </span>
+        <h3 className="text-lg font-semibold">{book.title}</h3>
+        <p className="text-sm text-gray-600 mb-2">{book.description}</p>
+        <button 
+          onClick={() => setIsModalOpen(true)}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
+        >
+          Borrow
+        </button>
+        <BorrowModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          book={book}
+        />
       </div>
     </div>
   );

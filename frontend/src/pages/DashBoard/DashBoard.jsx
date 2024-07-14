@@ -1,8 +1,8 @@
 import React from 'react';
-import DashboardNavbar from './Components/DashboardNavBar';
-import DashboardSearchBar from './Components/DashboardSearchBar';
-import UserProfile from './Components/UserProfile';
-import MyBookList from './Components/MyBookList';
+import DashboardNavbar from './Components/DashboardNavBar.jsx';
+import DashboardSearchBar from './Components/DashboardSearchBar.jsx';
+import UserProfile from './Components/UserProfile.jsx';
+import BookItem from './Components/BookItem.jsx';
 
 const Dashboard = () => {
   const user = {
@@ -20,13 +20,22 @@ const Dashboard = () => {
     }
   };
 
-  const myBooks = [
+  const borrowedBooks = [
     {
-      title: "Odoo 14 Development Cookbook: Rapidly build, customize, and ...",
-      description: "With over 200 recipes covering real-world examples, take your Odoo development skills to the next level and solve complex business problems using this guide Key FeaturesLearn to develop new modules and modify existing modules using the Odoo ...",
+      id: 1,
+      title: "Odoo 14 Development Cookbook",
+      description: "With over 200 recipes covering real-world examples...",
       coverUrl: "/odoo-14-cookbook.jpg",
-      daysRemaining: "3 Days"
-    }
+      lateFees: 0
+    },
+    {
+      id: 2,
+      title: "Python Tricks: The Book",
+      description: "Discover Python's best practices with simple examples...",
+      coverUrl: "/python-tricks.jpg",
+      lateFees: 2.50
+    },
+    // Add more borrowed books as needed
   ];
 
   return (
@@ -36,7 +45,12 @@ const Dashboard = () => {
         <div className="flex flex-wrap -mx-4">
           <div className="w-full lg:w-2/3 px-4 mb-8">
             <DashboardSearchBar />
-            <MyBookList books={myBooks} />
+            <div className="mt-8">
+              <h2 className="text-2xl font-semibold mb-4">My Borrowed Books</h2>
+              {borrowedBooks.map((book) => (
+                <BookItem key={book.id} book={book} lateFees={book.lateFees} />
+              ))}
+            </div>
           </div>
           <div className="w-full lg:w-1/3 px-4">
             <UserProfile user={user} />
