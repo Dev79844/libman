@@ -5,6 +5,7 @@ import fileUpload from "express-fileupload";
 import cors from "cors";
 import { userRouter } from "./routes/user";
 import { bookRouter } from "./routes/book";
+import { checkoutRouter } from "./routes/checkout";
 
 export const app = express();
 
@@ -28,3 +29,4 @@ app.use(
 
 app.use("/api/v1", userRouter);
 app.use("/api/v1", bookRouter);
+app.use("/api/v1", checkoutRouter);

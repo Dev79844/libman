@@ -18,46 +18,42 @@ model book_author {
   id        Int      @id @default(autoincrement())
   book_id   Int?
   author_id Int?
-  authors   authors? @relation(fields: [author_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  books     books?   @relation(fields: [book_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  authors   authors? @relation(fields: [author_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  books     books?   @relation(fields: [book_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model book_genre {
   id       Int     @id @default(autoincrement())
   book_id  Int?
   genre_id Int?
-  books    books?  @relation(fields: [book_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  genres   genres? @relation(fields: [genre_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  books    books?  @relation(fields: [book_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  genres   genres? @relation(fields: [genre_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model books {
-  id                 Int           @id @default(autoincrement())
-  title              String        @db.VarChar(255)
+  id                 Int              @id @default(autoincrement())
+  title              String           @db.VarChar(255)
   publisher          String?
-  year               String?       @db.VarChar(50)
+  year               String?          @db.VarChar(50)
   total_quantity     Int?
   available_quantity Int?
-  isbn               String?       @db.VarChar(255)
-  late_fee_per_day   Decimal?      @db.Decimal(10, 2)
+  isbn               String?          @db.VarChar(255)
+  late_fee_per_day   Decimal?         @db.Decimal(10, 2)
   description        String?
-  language           String?       @db.VarChar(50)
+  language           String?          @db.VarChar(50)
   book_author        book_author[]
   book_genre         book_genre[]
-  checkouts          checkouts[]
+  checkout_items     checkout_items[]
   images             images[]
 }
 
 model checkouts {
-  id            Int       @id @default(autoincrement())
-  book_id       Int?
-  user_id       Int?
-  checkout_date DateTime? @db.Date
-  due_date      DateTime? @db.Date
-  return_date   DateTime? @db.Date
-  status        String?   @db.VarChar(50)
-  late_fees     Decimal?  @default(0.00) @db.Decimal(10, 2)
-  books         books?    @relation(fields: [book_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  users         users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id             Int              @id(map: "checkouts_pkey1") @default(autoincrement())
+  user_id        Int?
+  late_fees      Decimal?         @default(0.00) @db.Decimal(10, 2)
+  status         String?          @db.VarChar(255)
+  checkout_items checkout_items[]
+  users          users?           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "checkouts_user_id_fkey1")
 }
 
 model genres {
@@ -88,5 +84,17 @@ model images {
   name    String? @db.VarChar(255)
   book_id Int?
   url     String?
-  books   books?  @relation(fields: [book_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  books   books?  @relation(fields: [book_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model checkout_items {
+  id            Int        @id(map: "checkouts_pkey") @default(autoincrement())
+  book_id       Int?
+  checkout_date DateTime?  @db.Date
+  due_date      DateTime?  @db.Date
+  return_date   DateTime?  @db.Date
+  status        String?    @db.VarChar(50)
+  checkout_id   Int?
+  checkouts     checkouts? @relation(fields: [checkout_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  books         books?     @relation(fields: [book_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "checkouts_book_id_fkey")
 }
