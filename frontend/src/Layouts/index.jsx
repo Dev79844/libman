@@ -6,6 +6,7 @@ import Dashboard from '../pages/DashBoard/DashBoard'
 import LoginPage from '../pages/LoginPage/LoginPage'
 import AdminDashboard from '../pages/AdminDashboard/AdminDashboard'
 import LibrarianDashboard from '../pages/LibrarianDashboard/LibrarianDashboard'
+import SignupPage from '../pages/SignupPage/SignupPage'
 
 const Layouts = () => {
   return (
@@ -18,6 +19,7 @@ const Layouts = () => {
                 <Route path='/login' element={<LoginPage/>} />
                 <Route path='/admin' element={<AdminDashboard/>} />
                 <Route path='/librarian' element={<LibrarianDashboard/>} />
+                <Route path='/signup' element={<SignupPage/>} />
             </Routes>
         </BrowserRouter>
     </div>
