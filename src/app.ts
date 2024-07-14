@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import fileUpload from "express-fileupload";
 import cors from "cors";
+import { userRouter } from "./routes/user";
 
 export const app = express();
 
@@ -23,3 +24,5 @@ app.use(
     useTempFiles: true,
   }),
 );
+
+app.use("/api/v1", userRouter);

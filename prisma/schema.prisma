@@ -44,6 +44,7 @@ model books {
   book_author        book_author[]
   book_genre         book_genre[]
   checkouts          checkouts[]
+  images             images[]
 }
 
 model checkouts {
@@ -80,4 +81,12 @@ model users {
   country        String?
   pincode        String?     @db.VarChar(50)
   checkouts      checkouts[]
+}
+
+model images {
+  id      Int     @id @default(autoincrement())
+  name    String? @db.VarChar(255)
+  book_id Int?
+  url     String?
+  books   books?  @relation(fields: [book_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
