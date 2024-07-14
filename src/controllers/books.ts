@@ -372,3 +372,72 @@ export const deleteBook = async (req: Request, res: Response) => {
     return res.status(500).json("internal server error");
   }
 };
+
+export const getBooks = async (req: Request, res: Response) => {
+  try {
+    const { page = 1, limit = 10 } = req.query;
+    const pageNumber = Number(page);
+    const limitNumber = Number(limit);
+
+    const skip = (pageNumber - 1) * limitNumber;
+
+    const totalCount = await db.books.count();
+
+    const books = await db.books.findMany({
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        publisher: true,
+        year: true,
+        available_quantity: true,
+        total_quantity: true,
+        isbn: true,
+        language: true,
+        images: {
+          select: {
+            url: true,
+          },
+        },
+        book_author: {
+          select: {
+            authors: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+        book_genre: {
+          select: {
+            genres: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+      skip: skip,
+      take: limitNumber,
+    });
+
+    const totalPages = Math.ceil(totalCount / limitNumber);
+    const hasNextPage = pageNumber < totalPages;
+    const hasPreviousPage = pageNumber > 1;
+
+    return res.status(200).json({
+      books,
+      pagination: {
+        currentPage: pageNumber,
+        totalPages,
+        totalItems: totalCount,
+        itemsPerPage: limitNumber,
+        hasNextPage,
+        hasPreviousPage,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
