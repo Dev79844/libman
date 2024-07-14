@@ -4,6 +4,7 @@ import morgan from "morgan";
 import fileUpload from "express-fileupload";
 import cors from "cors";
 import { userRouter } from "./routes/user";
+import { bookRouter } from "./routes/book";
 
 export const app = express();
 
@@ -26,3 +27,4 @@ app.use(
 );
 
 app.use("/api/v1", userRouter);
+app.use("/api/v1", bookRouter);
