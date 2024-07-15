@@ -1,14 +1,14 @@
-import React from 'react';
-import DashboardNavbar from './Components/DashboardNavBar.jsx';
-import DashboardSearchBar from './Components/DashboardSearchBar.jsx';
-import UserProfile from './Components/UserProfile.jsx';
-import BookItem from './Components/BookItem.jsx';
+import React from "react";
+import DashboardNavbar from "./Components/DashboardNavBar.jsx";
+import DashboardSearchBar from "./Components/DashboardSearchBar.jsx";
+import UserProfile from "./Components/UserProfile.jsx";
+import BookItem from "./Components/BookItem.jsx";
 
 const Dashboard = () => {
   const user = {
     name: "Mitchell Admin",
     company: "YourCompany",
-    avatar: "/user-avatar.jpg",
+    avatar: "/book-icon.png",
     address: "215 Vine St\nScranton PA 18503\nUnited States",
     phone: "+1 555-555-5555",
     email: "admin@yourcompany.example.com",
@@ -16,8 +16,8 @@ const Dashboard = () => {
       name: "Mitchell Admin",
       email: "admin@yourcompany.example.com",
       phone: "+1 555-555-5555",
-      location: "Scranton"
-    }
+      location: "Scranton",
+    },
   };
 
   const borrowedBooks = [
@@ -26,14 +26,14 @@ const Dashboard = () => {
       title: "Odoo 14 Development Cookbook",
       description: "With over 200 recipes covering real-world examples...",
       coverUrl: "/odoo-14-cookbook.jpg",
-      lateFees: 0
+      lateFees: 0,
     },
     {
       id: 2,
       title: "Python Tricks: The Book",
       description: "Discover Python's best practices with simple examples...",
       coverUrl: "/python-tricks.jpg",
-      lateFees: 2.50
+      lateFees: 2.5,
     },
     // Add more borrowed books as needed
   ];

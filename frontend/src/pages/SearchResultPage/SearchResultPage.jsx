@@ -1,25 +1,28 @@
-import React from 'react';
-import Navbar from '../HomePage/Components/Navbar.jsx';
-import SearchBar from './Components/SearchBar.jsx';
-import BookList from './Components/BookList.jsx';
-import Pagination from './Components/Pagination.jsx';
+import React from "react";
+import Navbar from "../HomePage/Components/Navbar.jsx";
+import SearchBar from "./Components/SearchBar.jsx";
+import BookList from "./Components/BookList.jsx";
+import Pagination from "./Components/Pagination.jsx";
 
 const SearchResultsPage = () => {
   const searchResults = [
     {
-      id: 1,
       title: "Odoo 14 Development Cookbook: Rapidly build, customize, and ...",
-      description: "With over 200 recipes covering real-world examples, take your Odoo development skills to the next level and solve complex business problems using this guide Key FeaturesLearn to develop new modules and modify existing modules using the Odoo ...",
+      author: "Parth Gajjar, Alexandre Fayolle, Holger Brunn",
+      year: "2020",
+      description:
+        "With over 200 recipes covering real-world examples, take your Odoo development skills to the next level and solve complex business ...",
       coverUrl: "/odoo-14-cookbook.jpg",
-      status: "Arriving in 6 Days"
     },
     {
-      id: 2,
-      title: "Odoo 14 Development Cookbook: Rapidly build, customize, and ...",
-      description: "With over 200 recipes covering real-world examples, take your Odoo development skills to the next level and solve complex business problems using this guide Key FeaturesLearn to develop new modules and modify existing modules using the Odoo ...",
-      coverUrl: "/odoo-14-cookbook.jpg",
-      status: "Available 3 Copy"
-    }
+      title:
+        "Odoo Development Cookbook: Build effective business apps with Odoo",
+      author: "Greg Moss",
+      year: "2019",
+      description:
+        "Completely revised and updated, this comprehensive Odoo guide is a fourth edition of Working with Odoo. This book begins with an introduction to Odoo and helps you set up Odoo Online in your system.",
+      coverUrl: "/odoo-development-cookbook.jpg",
+    },
   ];
 
   return (
